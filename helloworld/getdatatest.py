@@ -1,6 +1,14 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
 import urllib
 import urllib2
 
-url = 'http://www.someserver.com/cgi-bin/register.cgi'
+downjoyMainUrl = "http://money.downjoy.com/connectchannel/login.jsp"
 
-user_agent = ''
+resp = urllib2.urlopen(downjoyMainUrl)
+
+html = resp.read().decode('utf-8').encode('gb2312')
+
+print html
+
