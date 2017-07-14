@@ -6,17 +6,24 @@ import urllib
 import re
 import time
 
+pre_url = 'http://movie.douban.com/top250?start='
+top_urls = []
+top_tag = re.compile(r'<span class="title">(.+?)</span>')
+top_content = []
+top_num = 1
+global topicurl
 def getHtml2(url2):
-    html2=urllib.request.urlopen(url2).read().decode('utf-8')
+    html2=urllib.urlopen(url2).read().decode('utf-8')
     return html2
 
 def gettopic(html2):
+
     reg2=r'http://www.douban.com/group/topic/\d+'
     topiclist = re.findall(reg2,html2)
     x=0
-
-    for topicurl in topiclist:
-        x+=1
+    for topicurl1 in topiclist:
+      x+=1
+      topicurl = topicurl1
     return topicurl
 
 def download(topic_page):
@@ -27,7 +34,7 @@ def download(topic_page):
     for imgurl in imglist:
         img_numlist = re.findall(r'p\d{7}',imgurl)
         for img_num in img_numlist:
-            download_img = urllib2.request.urlretrieve(imgurl,'/Users/wutaotao/Desktop/书shu/%s.jpg'%img_num)
+            download_img = urllib.urlretrieve(imgurl,'/Users/wutaotao/Desktop/书shu/%s.jpg'%img_num)
             time.sleep(1)
             i+=1
             print (imgurl)
@@ -38,7 +45,7 @@ num_end = page_end*25
 num=0
 page_num=1
 while num<=num_end:
-    html2 = getHtml2('http://www.douban.com/group/kaopulove/discussion?start=%d' % num)
+    html2 = getHtml2('http://www.douban.com/group/kaopulove/discussion?start=%d'%num)
     topicurl = gettopic(html2)
     topic_page = getHtml2(topicurl)
     download_img = download(topic_page)
