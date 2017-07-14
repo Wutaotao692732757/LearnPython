@@ -11,7 +11,7 @@ top_urls = []
 top_tag = re.compile(r'<span class="title">(.+?)</span>')
 top_content = []
 top_num = 1
-global topicurl
+
 def getHtml2(url2):
     html2=urllib.urlopen(url2).read().decode('utf-8')
     return html2
